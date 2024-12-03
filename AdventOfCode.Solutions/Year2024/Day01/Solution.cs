@@ -7,7 +7,7 @@ class Solution : SolutionBase
 
     public Solution() : base(01, 2024, "Historian Hysteria", false) 
     {
-        var lines = input.SplitByNewline();
+        var lines = Input.SplitByNewline();
         foreach (var line in lines)
         {
             var parts = line.Split(' ', StringSplitOptions.RemoveEmptyEntries);
