@@ -9,6 +9,15 @@ public static class StringUtils
         return new string(arr);
     }
 
+    public static T[][] SplitToMatrix<T>(this string str, bool shouldTrim = false) => str
+        .SplitByNewline(shouldTrim)
+        .Select(row => row
+            .ToArray() // split 
+            .Select(x => (T)Convert.ChangeType(x, typeof(T)))
+            .ToArray() // Enumerable to array
+        )
+        .ToArray();
+
     public static string[] SplitByNewline(this string str, bool shouldTrim = false) => str
         .Split(new[] { "\r", "\n", "\r\n" }, StringSplitOptions.None)
         .Where(s => !string.IsNullOrWhiteSpace(s))
