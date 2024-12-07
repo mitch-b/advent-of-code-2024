@@ -2,6 +2,16 @@ namespace AdventOfCode.Solutions.Utils;
 
 public static class CollectionUtils
 {
+    public static T GetXY<T>(this IEnumerable<IEnumerable<T>> matrix, int x, int y) =>
+        matrix.ElementAt(y).ElementAt(x);
+
+    public static void SetXY<T>(this IEnumerable<IEnumerable<T>> matrix, int x, int y, T value)
+    {
+        var row = matrix.ElementAt(y).ToList();
+        row[x] = value;
+        row.CopyTo(matrix.ElementAt(y).ToArray());
+    }
+    
     public static IEnumerable<T> IntersectAll<T>(this IEnumerable<IEnumerable<T>> input)
         => input.Aggregate(input.First(), (intersector, next) => intersector.Intersect(next));
 
