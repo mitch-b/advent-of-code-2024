@@ -1,3 +1,5 @@
+using AdventOfCode.Solutions.Utils.Classes;
+
 namespace AdventOfCode.Solutions.Utils;
 
 public static class CollectionUtils
@@ -5,11 +7,21 @@ public static class CollectionUtils
     public static T GetXY<T>(this IEnumerable<IEnumerable<T>> matrix, int x, int y) =>
         matrix.ElementAt(y).ElementAt(x);
 
+    public static T GetXY<T>(this IEnumerable<IEnumerable<T>> matrix, Coordinate coordinate) =>
+        matrix.GetXY(coordinate.X, coordinate.Y);
+
     public static void SetXY<T>(this IEnumerable<IEnumerable<T>> matrix, int x, int y, T value)
     {
         var row = matrix.ElementAt(y).ToList();
         row[x] = value;
-        row.CopyTo(matrix.ElementAt(y).ToArray());
+        row.CopyTo([.. matrix.ElementAt(y)]);
+    }
+    
+    public static void SetXY<T>(this IEnumerable<IEnumerable<T>> matrix, Coordinate coordinate, T value)
+    {
+        var row = matrix.ElementAt(coordinate.Y).ToList();
+        row[coordinate.X] = value;
+        row.CopyTo([.. matrix.ElementAt(coordinate.Y)]);
     }
     
     public static IEnumerable<T> IntersectAll<T>(this IEnumerable<IEnumerable<T>> input)
